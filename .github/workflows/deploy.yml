@@ -22,7 +22,7 @@ jobs:
         run: docker build -t nodejs-githubactions .
 
       - name: Run Docker container
-        run: docker run -d -p 3000:3000 --name nodejs-githubactions nodejs-githubactions
+        run: docker run -d -p 3000:3000  nodejs-githubactions
 
       - name: Verify deployment
         run: |
