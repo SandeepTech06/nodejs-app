@@ -1,0 +1,32 @@
+name: Deploy NodeJS application
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Build Docker image
+        run: docker build -t nodejs-githubactions .
+
+      - name: Run Docker container
+        run: docker run -d -p 3000:3000 --name nodejs-githubactions nodejs-githubactions
+
+      - name: Verify deployment
+        run: |
+          sleep 10 # Wait for the container to start
+          curl -f http://localhost:3000 || exit 1
+
+      
