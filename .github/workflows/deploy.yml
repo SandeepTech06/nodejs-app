@@ -24,9 +24,6 @@ jobs:
       - name: Run Docker container
         run: docker run -d -p 3000:3000  nodejs-githubactions
 
-      - name: Docker Compose up
-        run: docker-compose up -d
-
       - name: Verify deployment
         run: |
           sleep 10 # Wait for the container to start
